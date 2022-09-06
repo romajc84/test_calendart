@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 void main() => runApp(const MyApp());
 
@@ -46,7 +45,17 @@ class _CalendarState extends State<Calendar> {
     "Dec"
   ];
 
-  List<String> listOfDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  // List<String> listOfDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  List<Map<String, String>> listOfDays = [
+    {"day": "Mon", "time": ''},
+    {"day": "Tue", "time": ''},
+    {"day": "Wed", "time": ''},
+    {"day": "Thu", "time": ''},
+    {"day": "Fri", "time": ''},
+    {"day": "Sat", "time": ''},
+    {"day": "Sun", "time": ''},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +154,7 @@ class _CalendarState extends State<Calendar> {
                             listOfDays[DateTime.now()
                                         .add(Duration(days: index))
                                         .weekday -
-                                    1]
+                                    1]["day"]
                                 .toString(),
                             style: TextStyle(
                                 fontSize: 16,
@@ -155,9 +164,10 @@ class _CalendarState extends State<Calendar> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            time == null
-                                ? 'NA'
-                                : DateFormat.Hm().format(time!).toString(),
+                            // time == null
+                            //     ? ''
+                            //     : DateFormat.Hm().format(time!).toString(),
+                            listOfDays[currentDateSelectedIndex]["time"]!,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: currentDateSelectedIndex == index
@@ -209,6 +219,7 @@ class _CalendarState extends State<Calendar> {
         setState(() {
           intialTime = changedTime;
           time = changedTime;
+          listOfDays[currentDateSelectedIndex]["time"] = time.toString();
         });
       },
     );
