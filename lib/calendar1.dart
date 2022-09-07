@@ -34,17 +34,7 @@ class _Calendar1State extends State<Calendar1> {
 
   List<String> listOfDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-  List<String> listOfTimes = [];
-
-  // List<List<String>> listOfDays = [
-  //   ["Mon", ""],
-  //   ["Tue", ""],
-  //   ["Wed", ""],
-  //   ["Thu", ""],
-  //   ["Fri", ""],
-  //   ["Sat", ""],
-  //   ["Sun", ""]
-  // ];
+  List<String> listOfTimes = List<String>.filled(60, "");
 
   @override
   Widget build(BuildContext context) {
@@ -140,12 +130,12 @@ class _Calendar1State extends State<Calendar1> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            // listOfDays[DateTime.now()
-                            //             .add(Duration(days: index))
-                            //             .weekday -
-                            //         1][0]
-                            //     .toString(),
-                            listOfDays[index][1],
+                            listOfDays[DateTime.now()
+                                        .add(Duration(days: index))
+                                        .weekday -
+                                    1]
+                                .toString(),
+                            // listOfDays[index][1],
                             style: TextStyle(
                                 fontSize: 16,
                                 color: currentDateSelectedIndex == index
@@ -154,10 +144,12 @@ class _Calendar1State extends State<Calendar1> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            listOfDays[DateTime.now()
-                                    .add(Duration(days: index))
-                                    .weekday -
-                                1][1],
+                            // listOfDays[DateTime.now()
+                            //         .add(Duration(days: index))
+                            //         .weekday -
+                            //     1][1],
+
+                            listOfTimes[index],
                             style: TextStyle(
                                 fontSize: 16,
                                 color: currentDateSelectedIndex == index
@@ -179,9 +171,9 @@ class _Calendar1State extends State<Calendar1> {
 
   _addTimeToIndex() {
     if (time == null) {
-      listOfDays[currentDateSelectedIndex][1] = "";
+      listOfTimes[currentDateSelectedIndex] = "";
     } else {
-      listOfDays[currentDateSelectedIndex][1] =
+      listOfTimes[currentDateSelectedIndex] =
           DateFormat.Hm().format(time!).toString();
     }
   }
