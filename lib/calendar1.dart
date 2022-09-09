@@ -47,7 +47,7 @@ class _Calendar1State extends State<Calendar1> {
         duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
-  void _resetTimesIndex(DateTime oldTime) {
+  _resetTimesIndex(DateTime oldTime) {
     final today = DateTime.now();
     int daysBetween(DateTime from, DateTime to) {
       from = DateTime(from.year, from.month, from.day);
@@ -74,26 +74,6 @@ class _Calendar1State extends State<Calendar1> {
         centerTitle: true,
         elevation: 0,
         toolbarHeight: 42.0,
-
-        /// For testing [_resetTimesIndex] only
-
-        leading: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  _resetTimesIndex(_initialTime);
-                });
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-              ),
-            ),
-          ],
-        ),
-
-        /// End of test
-
         title: Text(
           DateFormat.yMMMMd('en_US').format(_selectedDate).toString(),
         ),
@@ -103,6 +83,7 @@ class _Calendar1State extends State<Calendar1> {
                 setState(() {
                   _resetSelectedDate();
                   _scrollToIndex(_selectedIndex);
+                  _resetTimesIndex(_initialTime);
                 });
               },
               icon: const Icon(Icons.refresh)),
@@ -127,6 +108,7 @@ class _Calendar1State extends State<Calendar1> {
                       _selectedIndex = index;
                       _selectedDate = DateTime.now().add(Duration(days: index));
                       _scrollToIndex(index);
+                      _resetTimesIndex(_initialTime);
                     });
                     showCupertinoModalPopup<void>(
                         context: context,
